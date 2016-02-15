@@ -554,7 +554,11 @@ button:focus {
 
 @media screen and (max-width: 60em) {
 	.mockup-width--third {
-		width: 100%;
+		margin: 0 10%;
+		width: 80%;
+	}
+	.mockup-heading--small {
+		padding: 0.2em 0 0.3em 0;
 	}
 }
 
@@ -589,9 +593,12 @@ button:focus {
 	.mockup-content {
 		padding: 0 10px;
 	}
-	.mockup-width--forth,
 	.mockup-width--half {
 		width: 100%;
+	}
+	.mockup-width--forth {
+		width: 80%;
+		margin: 0 10%;
 	}
 	.mockup-logo,
 	.mockup-nav {
@@ -609,12 +616,9 @@ button:focus {
 		font-size: 1.5em;
 	}
 }
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> gh-pages
 
 
 
