@@ -158,7 +158,7 @@ button:focus {
 	margin: 0;
 }
 .mockup-heading--large {
-	font-size: 2.75em;
+	font-size: 2.45em;
 }
 .mockup-heading--single {
 	padding: 0 20px 1.5em;
@@ -207,14 +207,18 @@ button:focus {
 	font-size: 40px;
 	color: rgba(0,0,0,0.1);
 }
+
+.mockup-img .large {
+	width: 100%;
+}
 .mockup-img img {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 }
-.mockup-img .pic {
-	width: 35%;
-	height: 35%;
+.mockup-img .small {
+	width: 80px;
+	height: 80px;
 	vertical-align: middle;
 }
 .mockup-img--large {
