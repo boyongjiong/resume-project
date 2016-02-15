@@ -6,6 +6,7 @@
 		//transition end event name
 		transEndEventNames = {"WebkitTransition": "webkitTransitionEnd", "MozTransition": "transitionend", "OTransition": "oTransitionEnd", "msTransition": "msTransitionEnd", "transition": "transitionend" },
 		transEndEventName = transEndEventNames[ Modernizr.prefixed("transition") ];
+
 	function scrollX(){ return window.pageXOffset || docElem.scrollLeft; }
 	//element.scrollTop属性可以设置或获取一个元素距离它顶部的像素距离（可见高度）
 	function scrollY(){ return window.pageYOffset || docElem.scrollTop; }
@@ -21,9 +22,14 @@
 			x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
 			y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
+		//测试getAttribute功能
+		// console.log(target.getAttribute("data-x"));
+
 		//translate the element
-		target.style.transform = target.style.webkitTransform = 'translate("+ x +"px, "+ y +"px)';
+		target.style.transform = target.style.webkitTransform = "translate("+ x +"px, "+ y +"px)";
 		target.style.zIndex = 10000;
+		// 测试获取的target
+		// console.log(target);
 
 		//update the position attributes
 		target.setAttribute("data-x", x);
@@ -61,7 +67,11 @@
 			//Require a 75%element overlap for a drop to be possible
 			overlap: 0.75,
 			ondragenter: function(event){
+				// console.log(event.target);
 				classie.add(event.target, "paint-area--highlight");
+			},
+			ondragleave: function(event){
+				classie.remove(event.target, "paint-area--highlight");
 			},
 			ondrop: function(event){
 				var type = "area";
@@ -70,23 +80,26 @@
 				}
 
 				var draggableElement = event.relatedTarget;
+				// 测试使用，实验三个定义的执行情况
+				// console.log(event.target);
+				// console.log(type);
+				// console.log(draggableElement);
 
 				classie.add(draggableElement, type === "text" ? "drag-element--dropped-text" : "drag-element--dropped");
 				//calculate distance to the base
-				console.log(event.target)
-				console.log(event.dragEvent.clientY);
-				console.log(getOffset(event.target).top);
-				console.log("translate3d(0," + Number(getOffset(event.target).top - event.dragEvent.clientY - 20) + "px,0)");
+				// console.log(event.target)
+				// console.log(getOffset(event.target).top);
+				// console.log("translate3d(0," + Number(getOffset(event.target).top - event.dragEvent.clientY - 20) + "px,0)");
 				// draggableElement.style.transform = "translate3d(0," + Number(getOffset(event.target).top) - event.dragEvent.clientY) + "px,0)";
 
 				var onEndTransCallbackFn = function(ev){
 					this.removeEventListener(transEndEventName, onEndTransCallbackFn);
-					if(this.type === "area"){
+					if(type === "area"){
 						paintArea(event.dragEvent, event.target, draggableElement.getAttribute("data-color"));
 					}
 					setTimeout(function(){
 						revertDraggable(draggableElement);
-						classie.remove(draggableELement, type === "text" ? "drag-element--dropped-text" : "drag-element--dropped");
+						classie.remove(draggableElement, type === "text" ? "drag-element--dropped-text" : "drag-element--dropped");
 					},type === "text" ? 0 : 250);
 				};
 				if(type === "text"){
@@ -119,12 +132,12 @@
 			dummy.setAttributeNS(null,"class","paint");
 
 			var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-			g.setAttributeNS(null, "transform", "translate(" + Number(ev.pageX -getOffset(el).left) + "," + Number(ev.pageY - pageOffset(el).top) + ")");
+			g.setAttributeNS(null, "transform", "translate(" + Number(ev.pageX - getOffset(el).left) + "," + Number(ev.pageY - getOffset(el).top) + ")");
 
 			var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 			circle.setAttributeNS(null, "cx", 0);
 			circle.setAttributeNS(null, "cy", 0);
-			circle.setAttributeNS(null, "r", Math.sqrt(Math.pow(el.offseWidth,2) + Math.pow(el.offsetWidth,2) + Math.pow(el.offsetHeight,2)));
+			circle.setAttributeNS(null, "r", Math.sqrt(Math.pow(el.offsetWidth,2) + Math.pow(el.offsetHeight,2)));
 			circle.setAttributeNS(null, "fill", color);
 
 			dummy.appendChild(g);
@@ -150,7 +163,7 @@
 					if(ev.target != this || ev.propertyName === "fill-opacity") return;
 					this.removeEventListener(transEndEventName, onEndTransCallbackFn);
 					//set the color
-					el.style.backfroundColor = color;
+					el.style.backgroundColor = color;
 					//remove SVG element
 					el.removeChild(dummy);
 

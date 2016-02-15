@@ -279,7 +279,60 @@ button:focus {
 	content: "\2015";
 }
 
+/* Set Element that can be painted to overflow hidden */
+.paint-area {
+	overflow: hidden;
+	position: relative;
+	-webkit-transition: background 0.2s, color 0.2s;
+	transition: background 0.2s, color 0.2s;
+}
 
+.paint--active.paint-area {
+	-webkit-transition: none;
+	transition: none;
+}
+.paint--active.paint-area--text {
+	-webkit-transition: color 0.3s;
+	transition: color 0.3s;
+}
+
+.paint-area .paint-area--highlight:not(.paint-area--text) {
+	box-shadow: inset  0 0 0 3px rgb(133,125,255);
+}
+.paint-area--text .paint-area--highlight {
+	text-shadow: 
+		-1px -1px 0 rgba(133,125,255,0.5),
+		1px -1px 0 rgba(133,125,255,0.5),
+		-1px 1px 0 rgba(133,125,255,0.5),
+		1px 1px 0 rgba(133,125,255,0.5);
+}
+.paint-area * {
+	position: relative;
+	z-index: 10;
+	cursor: default;
+}
+.paint {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+.paint circle {
+	fill-opacity: 0;
+	-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);
+	-webkit-transition: -webkit-transform 0.8s, fill-opacity 0.4s;
+	transition: transform 0.8s, fill-opacity 0.4s;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+}
+
+.paint--active .paint circle {
+	fill-opacity: 1;
+	-webkit-transform: scale3d(1,1,1);
+	transform: scale3d(1,1,1);
+}
 
 /* Customizer. color pick part's css */
 .customizer {
@@ -313,11 +366,11 @@ button:focus {
 .color-1 { background: #333; color: #333;}
 .color-2 { background: #f0f0f0; color: #f0f0f0; }
 .color-3 { background: #c0c3d5; color: #c0c3d5; }
-.color-4 { background: #5FA1E0; color: #5FA1E0; }
+.color-4 { background: #5fa1e0; color: #5fa1e0; }
 .color-5 { background: #c1d5c0; color: #c1d5c0; }
-.color-6 { background: #47AE73; color: #47AE73; }
+.color-6 { background: #47ae73; color: #47ae73; }
 .color-7 { background: #eae7c4; color: #eae7c4; }
-.color-8 { background: #FB6964; color: #FB6964; }
+.color-8 { background: #fb6964; color: #fb6964; }
 
 .drag-element {
 	display: block;
@@ -489,62 +542,6 @@ button:focus {
 	-webkit-background-size: 100%;
 	background-size: 100%;
 }
-
-/* Set Element that can be painted to overflow hidden */
-.paint-area {
-	overflow: hidden;
-	position: relative;
-	-webkit-transition: background 0.2s, color 0.2s;
-	transition: background 0.2s, color 0.2s;
-}
-
-.paint--active.paint-area {
-	-webkit-transition: none;
-	transition: none;
-}
-.paint--active.paint-area--text {
-	-webkit-transition: color 0.3s;
-	transition: color 0.3s;
-}
-
-.paint-area .paint-area--highlight:not(.paint-area--text) {
-	box-shadow: inset  0 0 0 3px rgb(133,125,255);
-}
-.paint-area--text .paint-area--highlight {
-	text-shadow: 
-		-1px -1px 0 rgba(133,125,255,0.5),
-		1px -1px 0 rgba(133,125,255,0.5),
-		-1px 1px 0 rgba(133,125,255,0.5),
-		1px 1px 0 rgba(133,125,255,0.5);
-}
-.paint-area * {
-	position: relative;
-	z-index: 10;
-	cursor: default;
-}
-.paint {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 0;
-}
-
-.paint circle {
-	fill-opacity: 0;
-	-webkit-transform: scale3d(0,0,1);
-	transform: scale3d(0,0,1);
-	-webkit-transition: -webkit-transform 0.8s, fill-opacity 0.4s;
-	transition: transform 0.8s, fill-opacity 0.4s;
-	-webkit-transition-timing-function: ease-out;
-	transition-timing-function: ease-out;
-}
-
-.paint--active .paint circle {
-	fill-opacity: 1;
-	-webkit-transform: scale3d(1,1,1);
-	transform: scale3d(1,1,1);
-}
-
 
 @media screen and (max-width: 70em) {
 	.mockup-width--forth {
